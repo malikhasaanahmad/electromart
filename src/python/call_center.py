@@ -42,7 +42,6 @@ class CallCenterApp:
             print("  Host: localhost")
             print("  Port: 3306")
             print("  User: root")
-            print("  Password: Malik123 (hardcoded)")
             self.connection = None
     
     def lookup_customer(self, email=None, phone=None, account_number=None):
