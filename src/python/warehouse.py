@@ -10,19 +10,7 @@ from datetime import datetime
 import os
 import sys
 
-# Add parent directory so we can import db_config
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-# Get the password from db_config.py
-try:
-    from db_config import DB_CONFIG
-    DB_PASSWORD = DB_CONFIG.get('password', 'Malik123')
-except ImportError:
-    DB_PASSWORD = 'Malik123'
-
-# Make sure we have a password
-if not DB_PASSWORD:
-    DB_PASSWORD = 'Malik123'
+DB_PASSWORD = os.getenv("DB_PASSWORD", "")
 
 class WarehouseApp:
     def __init__(self):
@@ -38,7 +26,7 @@ class WarehouseApp:
                 port=3306,
                 database='electronics_vendor',
                 user='root',
-                password='Malik123'  # The password
+                password=DB_PASSWORD,
             )
             if self.connection.is_connected():
                 print("Connected to database successfully!")
