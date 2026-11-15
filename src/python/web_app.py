@@ -27,25 +27,13 @@ WEB_DIR = os.path.join(SRC_DIR, 'web')  # src/web
 app = Flask(__name__, static_folder=WEB_DIR, static_url_path='')
 CORS(app)  # This lets the website talk to the server (CORS stuff)
 
-# Get the database password from db_config.py
-try:
-    from db_config import DB_CONFIG
-    DB_PASSWORD = DB_CONFIG.get('password', 'Malik123')
-except ImportError:
-    # If we can't find db_config, just use the default password
-    DB_PASSWORD = 'Malik123'
-
-# Make sure we have a password (just in case)
-if not DB_PASSWORD:
-    DB_PASSWORD = 'Malik123'
-
-# Database connection settings - password is hardcoded here
+DB_PASSWORD = os.getenv("DB_PASSWORD", "")
 DB_CONFIG_FULL = {
     'host': 'localhost',
     'port': 3306,
     'database': 'electronics_vendor',
     'user': 'root',
-    'password': 'Malik123',  # The password
+        'password': DB_PASSWORD,
     'charset': 'utf8mb4',
     'collation': 'utf8mb4_unicode_ci'
 }
